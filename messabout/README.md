@@ -3,31 +3,42 @@ Running Benchmark
 
 To run these simple benchmarks, use
 
-	go test -bench=".*"" -benchtime=30
+	go test -bench=".*"" -benchtime=15
 
-the parameter, `-benchtime=30` allows for each `Benchmark*` function to run for approx. 30 seconds.
+the parameter, `-benchtime=15` allows for each `Benchmark*` function to run for approx. 15 seconds.
 
 
-Sample output (Cold Run)
-------------------------
+Sample output
+-------------
+
+	GOARCH = amd64
+	GOOS = linux
+	Go version 1.0.3
+	Location: Seoul, Korea
 
 	Requesting lookup with metro: wlg
-	{"city": "Wellington", "url": "http://ndt.iupui.mlab1.wlg01.measurement-lab.org:7123", "ip": ["103.10.233.11"], "fqdn": "ndt.iupui.mlab1.wlg01.measurement-lab.org", "site": "wlg01", "country": "NZ"}
+	{"city": "Wellington", "url": "http://ndt.iupui.mlab2.wlg01.measurement-lab.org:7123", "ip": ["103.10.233.24"], "fqdn": "ndt.iupui.mlab2.wlg01.measurement-lab.org", "site": "wlg01", "country": "NZ"}
 	Requesting lookup with IP address: 163.7.129.12
 	{"city": "Wellington", "url": "http://ndt.iupui.mlab1v4.wlg01.measurement-lab.org:7123", "ip": ["103.10.233.11"], "fqdn": "ndt.iupui.mlab1v4.wlg01.measurement-lab.org", "site": "wlg01", "country": "NZ"}
 	Requesting lookup with Country: NL
-	{"city": "Amsterdam", "url": "http://ndt.iupui.mlab3.ams02.measurement-lab.org:7123", "ip": ["72.26.217.103"], "fqdn": "ndt.iupui.mlab3.ams02.measurement-lab.org", "site": "ams02", "country": "NL"}
+	{"city": "Amsterdam", "url": "http://ndt.iupui.mlab2.ams01.measurement-lab.org:7123", "ip": ["213.244.128.152"], "fqdn": "ndt.iupui.mlab2.ams01.measurement-lab.org", "site": "ams01", "country": "NL"}
 	PASS
-	Benchmark_ReqWithMetro       100         399183710 ns/op
-	Benchmark_ReqWithIP          100         461228120 ns/op
-	Benchmark_ReqWithCountry             100         390090510 ns/op
+	Benchmark_ReqWithMetro        50         492030300 ns/op
+	Benchmark_ReqWithIP           50         683522180 ns/op
+	Benchmark_ReqWithCountry              50         432231220 ns/op
 
-
-Note
-----
-
-Requests are memcached on the mlab-ns server.
+Note on 'results'
+-----------------
 
 `MetroResolver`, `GeoResolver` and `CountryResolver` are used with varying url parameters.
 
-Benchmarks are by no means scientific.
+Fresh set of IPs used. GeoResolver results not cached using memcache serverside.
+
+- *MetroResolver* takes approx. 490ms.
+- *GeoResolver* takes approx. 680ms.
+- *CountryResolver* takes approx. 430ms.
+
+These results are specifically for the case of my laptop which is located, at the time of writing, in Seoul, Korea. The laptop is running Ubuntu Linux 12.10 with KDE 4.10.1.
+
+- *MetroResolver* takes 60ms more than *CountryResolver* due to running `ResolverBase._get_candidates_from_sites`
+- *GeoResolver* takes 250ms more than *CountryResolver* due to either or both finding min. distance site and Maxmind query. Likely both as delay is long.
