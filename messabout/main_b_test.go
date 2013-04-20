@@ -6,11 +6,10 @@ import (
 
 // Taken from http://mlab-ns.appspot.com/admin/sites
 var metros = []string{
-	"wlg", "vie", "trn", "tpe", "syd", "syd", "svg", "sea",
-	"prg", "par", "ord", "nuq", "nuq", "nbo", "mil", "mia",
-	"mad", "lju", "lhr", "lga", "lga", "lca", "lba", "lax",
-	"jnb", "iad", "hnd", "ham", "dub", "dfw", "atl", "ath",
-	"ath", "arn", "ams", "ams", "akl",
+	"wlg", "vie", "trn", "tpe", "syd", "svg", "sea", "prg",
+	"par", "ord", "nuq", "nbo", "mil", "mia", "mad", "lju",
+	"lhr", "lga", "lca", "lba", "lax", "jnb", "iad", "hnd",
+	"ham", "dub", "dfw", "atl", "ath", "arn", "ams", "akl",
 }
 
 func Benchmark_ReqWithMetro(b *testing.B) {
