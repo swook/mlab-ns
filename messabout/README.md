@@ -40,5 +40,7 @@ Fresh set of IPs used. GeoResolver results not cached using memcache serverside.
 
 These results are specifically for the case of my laptop which is located, at the time of writing, in Seoul, Korea. The laptop is running Ubuntu Linux 12.10 with KDE 4.10.1.
 
-- *MetroResolver* takes 60ms more than *CountryResolver* due to running `ResolverBase._get_candidates_from_sites`
+- *MetroResolver* and *CountryResolver* take around about the same time despite *MetroResolver*'s extra queries in `ResolverBase._get_candidates_from_sites`. This is due to *MetroResolver* memcache-ing queries.
 - *GeoResolver* takes 250ms more than *CountryResolver* due to either or both finding min. distance site and Maxmind query. Likely both as delay is long.
+
+To see how slow mlab-ns may be, the response time of a [Youtube API](https://developers.google.com/youtube/2.0/reference) query and the response time of GET-ing the [http://godoc.org](http://godoc.org) homepage is done.

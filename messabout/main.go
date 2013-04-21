@@ -53,3 +53,15 @@ func ReqWithCountry(toolURL, country string) (result string) {
 	url := fmt.Sprintf("%s%s&country=%s", toolURL, DEFARGS, country)
 	return reqBase(url)
 }
+
+// youtube performs a JSON api request to Youtube
+// written to compare with a fast API
+func youtube() string {
+	return reqBase("http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?max-results=1&v=2&alt=json")
+}
+
+// godoc performs a GET request to http://godoc.org/
+// godoc.org is written in Go and runs on GAE
+func godoc() string {
+	return reqBase("http://godoc.org")
+}
