@@ -11,10 +11,14 @@ the parameter, `-benchtime=15` allows for each `Benchmark*` function to run for 
 Sample output
 -------------
 
-	GOARCH = amd64
-	GOOS = linux
-	Go version 1.0.3
-	Location: Seoul, Korea
+For the following environment:
+
+ - Go version 1.0.3
+ - GOARCH = amd64
+ - GOOS = linux
+ - Location: Seoul, Korea
+
+Benchmark output:
 
 	Benchmark_ReqWithMetro       100         418194790 ns/op
 	Benchmark_ReqWithIP          100         488355900 ns/op
